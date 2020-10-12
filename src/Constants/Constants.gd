@@ -1,0 +1,7 @@
+extends Node
+
+const TILE_SIZE=32
+
+const MOVE_SPEED=5*TILE_SIZE
+const JET_PACK_SPEED=7*TILE_SIZE
+const JUMP=6*TILE_SIZE

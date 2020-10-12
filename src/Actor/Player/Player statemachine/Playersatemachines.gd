@@ -41,8 +41,7 @@ func transition(delta):
 			elif abs(player.velocity.x)>=1 &&player.foot==true:
 					return states["foot"][2]
 			elif player.foot==false:
-				if abs(player.velocity.x)==0:
-					return states["jet_pack"][1]
+				return states["jet_pack"][1]
 		"Run":
 			if !player.is_on_floor()&&player.foot==true:
 				if player.velocity.y<0:
@@ -52,13 +51,14 @@ func transition(delta):
 			elif abs(player.velocity.x)<=1 && player.foot==true:
 				return states["foot"][1]
 			elif player.foot==false:
-				if player.velocity!=Vector2(0,0):
-					return states["jet_pack"][1]
+				return states["jet_pack"][1]
 		"Jump":
 			if player.velocity.y>0 and player.foot==true:
 				return states["foot"][4]
 			if player.is_on_floor() and player.foot==true:
 				return states["foot"][1]
+			if player.foot==false:
+				return states["jet_pack"][1]
 		"Fall":
 			if player.velocity.y<0 and player.foot==true:
 				return states["foot"][3]
@@ -79,7 +79,7 @@ func animation(state):
 		"Jump":
 			player.animation_player.play("Jump")
 		"jet_pack_idle":
-			player.animation_player.play()
+			player.animation_player.play("Jet_pack")
 
 func _unhandled_input(event):
 	if event.is_action_pressed("space"):

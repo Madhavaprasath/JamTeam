@@ -1,14 +1,16 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://src/Sprites/astronautsheet.png" type="Texture" id=1]
 [ext_resource path="res://src/Actor/Player/Player.gd" type="Script" id=2]
 [ext_resource path="res://src/Actor/Player/Player statemachine/Playersatemachines.gd" type="Script" id=3]
+[ext_resource path="res://src/Sprites/gunsheet.png" type="Texture" id=4]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Fall"
 length = 0.5
+loop = true
 tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:frame")
+tracks/0/path = NodePath("Playercontents/Sprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -17,7 +19,19 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 15, 16, 17, 18, 19 ]
+"values": [ 16, 17, 18, 19, 20 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Playercontents/position/Piviot/Gun:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ Vector2( 6.9, -3.933 ), Vector2( 6.9, -0.933 ) ]
 }
 
 [sub_resource type="Animation" id=2]
@@ -25,7 +39,7 @@ resource_name = "Idle"
 length = 0.6
 loop = true
 tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:frame")
+tracks/0/path = NodePath("Playercontents/Sprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -36,13 +50,25 @@ tracks/0/keys = {
 "update": 1,
 "values": [ 0, 1, 2, 3, 4, 5 ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("Playercontents/position/Piviot/Gun:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ Vector2( 6.9, -0.133 ), Vector2( 6.9, 0.931 ) ]
+}
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=3]
 resource_name = "Jet_pack"
 length = 0.7
 loop = true
 tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:frame")
+tracks/0/path = NodePath("Playercontents/Sprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -53,12 +79,23 @@ tracks/0/keys = {
 "update": 1,
 "values": [ 12, 13, 14, 15 ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("Playercontents/position/Piviot/Gun:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 6.9, -4.933 ) ]
+}
 
-[sub_resource type="Animation" id=3]
-resource_name = "Jump"
-length = 0.6
+[sub_resource type="Animation" id=4]
+length = 0.5
 tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:frame")
+tracks/0/path = NodePath("Playercontents/Sprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -69,13 +106,24 @@ tracks/0/keys = {
 "update": 1,
 "values": [ 8, 9, 10, 11, 12 ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("Playercontents/position/Piviot/Gun:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ Vector2( 6.9, -0.133 ), Vector2( 6.9, -2.12 ), Vector2( 6.9, -5.062 ) ]
+}
 
-[sub_resource type="Animation" id=4]
-resource_name = "Run"
+[sub_resource type="Animation" id=5]
 length = 0.6
 loop = true
 tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:frame")
+tracks/0/path = NodePath("Playercontents/Sprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -86,8 +134,54 @@ tracks/0/keys = {
 "update": 1,
 "values": [ 24, 25, 26, 27, 28, 29 ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("Playercontents/position/Piviot/Gun:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 6.9, -0.133 ) ]
+}
 
-[sub_resource type="CapsuleShape2D" id=5]
+[sub_resource type="Animation" id=6]
+resource_name = "Fire"
+length = 0.2
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.05, 0.1, 0.15, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 1, 2, 3, 4, 5 ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "Idle"
+length = 0.1
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+
+[sub_resource type="CapsuleShape2D" id=8]
 radius = 6.05746
 
 [node name="Player" type="KinematicBody2D"]
@@ -98,24 +192,50 @@ foot = false
 
 [node name="Body" type="Node2D" parent="."]
 
-[node name="Sprite" type="Sprite" parent="Body"]
+[node name="Playercontents" type="Node2D" parent="Body"]
+
+[node name="Sprite" type="Sprite" parent="Body/Playercontents"]
 texture = ExtResource( 1 )
 vframes = 4
 hframes = 8
-frame = 12
+frame = 24
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Body"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Body/Playercontents"]
+root_node = NodePath("../..")
 anims/Fall = SubResource( 1 )
 anims/Idle = SubResource( 2 )
-anims/Jet_pack = SubResource( 6 )
-anims/Jump = SubResource( 3 )
-anims/Run = SubResource( 4 )
+anims/Jet_pack = SubResource( 3 )
+anims/Jump = SubResource( 4 )
+anims/Run = SubResource( 5 )
 
-[node name="Particles" type="Node2D" parent="Body"]
+[node name="Particles" type="Node2D" parent="Body/Playercontents"]
+
+[node name="position" type="Node2D" parent="Body/Playercontents"]
+position = Vector2( 10.1994, 4.14658 )
+
+[node name="Piviot" type="Position2D" parent="Body/Playercontents/position"]
+position = Vector2( -5.88193, -1.00793 )
+
+[node name="Gun" type="Sprite" parent="Body/Playercontents/position/Piviot"]
+position = Vector2( 6.9, -0.133 )
+texture = ExtResource( 4 )
+hframes = 6
+frame = 5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Body/Playercontents/position/Piviot/Gun"]
+anims/Fire = SubResource( 6 )
+anims/Idle = SubResource( 7 )
+
+[node name="Bullet_spawn" type="Position2D" parent="Body/Playercontents/position/Piviot/Gun"]
+position = Vector2( 5.032, -3.6 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0.872529, -0.11824 )
-shape = SubResource( 5 )
+shape = SubResource( 8 )
 
 [node name="Playersatemachines" type="Node" parent="."]
 script = ExtResource( 3 )
+
+[node name="Reload timer" type="Timer" parent="."]
+[connection signal="animation_finished" from="Body/Playercontents/position/Piviot/Gun/AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
+[connection signal="timeout" from="Reload timer" to="." method="_on_Reload_timer_timeout"]
